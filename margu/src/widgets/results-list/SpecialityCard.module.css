@@ -1,0 +1,111 @@
+.card {
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card:hover {
+  border-color: #c5cadc;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card.expanded {
+  border-color: var(--clr-accent);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
+}
+
+.tag_red { background: var(--clr-tag-red); color: var(--clr-tag-red-text); }
+.tag_blue { background: var(--clr-tag-blue); color: var(--clr-tag-blue-text); }
+.tag_green { background: var(--clr-tag-green); color: var(--clr-tag-green-text); }
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--clr-text-primary);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--clr-text-secondary);
+}
+
+.details {
+  border-top: 1px solid var(--clr-border);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: expand 0.2s ease;
+}
+
+@keyframes expand {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.exams {
+  font-size: 13px;
+  color: var(--clr-text-secondary);
+  line-height: 1.5;
+}
+.exams strong { color: var(--clr-text-primary); }
+
+.propRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--clr-border);
+}
+.propRow:last-child { border-bottom: none; }
+
+.propKey { color: var(--clr-text-secondary); flex: 1; }
+.propVal { color: var(--clr-text-primary); font-weight: 600; text-align: right; }
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-accent);
+  margin-top: auto;
+  padding-top: 4px;
+  transition: opacity var(--transition);
+}
+.toggle:hover { opacity: 0.7; }
+
+@media (min-width: 1024px) {
+  .title { font-size: 16px; }
+}

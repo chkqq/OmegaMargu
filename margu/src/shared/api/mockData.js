@@ -1,0 +1,148 @@
+/** @type {import('./calculator').SubjectItem[]} */
+export const MOCK_SUBJECTS = [
+  { id: 1, value: 'Русский язык' },
+  { id: 2, value: 'Математика' },
+  { id: 3, value: 'Физика' },
+  { id: 4, value: 'Информатика' },
+  { id: 5, value: 'Биология' },
+  { id: 6, value: 'История' },
+  { id: 7, value: 'Обществознание' },
+  { id: 8, value: 'Литература' },
+  { id: 9, value: 'Иностранный язык' },
+  { id: 10, value: 'Химия' },
+  { id: 11, value: 'География' },
+];
+
+/** Min scores by subject id */
+export const MIN_SCORES = { 1: 40, 2: 40, 3: 41, 4: 46, 5: 40, 6: 40, 7: 45, 8: 40, 9: 40, 10: 40, 11: 40 };
+
+/** @type {import('./calculator').CalculatorResult} */
+export const MOCK_RESULTS = {
+  subjects: [
+    { id: 2, title: 'Математика', points: 50 },
+    { id: 3, title: 'Физика', points: 70 },
+    { id: 4, title: 'Информатика', points: 25 },
+  ],
+  specialities: [
+    {
+      id: 1,
+      faculty: 'unit_phys_math',
+      facultyName: 'Физико-математический факультет',
+      title: 'Искусственный интеллект',
+      tags: [{ value: '01.03.01', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Физика, Русский язык',
+      properties: { budgetPlaces: '25', passingScore: '210', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '25' },
+        { title: 'Платных мест', value: '10' },
+        { title: 'Стоимость', value: '132 000 руб.' },
+      ],
+    },
+    {
+      id: 2,
+      faculty: 'unit_phys_math',
+      facultyName: 'Физико-математический факультет',
+      title: 'Разработка интеллектуальных систем и хранилищ данных',
+      tags: [{ value: '02.03.03', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Информатика, Русский язык',
+      properties: { budgetPlaces: '20', passingScore: '195', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '20' },
+        { title: 'Платных мест', value: '8' },
+        { title: 'Стоимость', value: '128 000 руб.' },
+      ],
+    },
+    {
+      id: 3,
+      faculty: 'unit_phys_math',
+      facultyName: 'Физико-математический факультет',
+      title: 'Инжиниринг электронных компонентов и материалов',
+      tags: [{ value: '03.03.02', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Физика, Русский язык',
+      properties: { budgetPlaces: '15', passingScore: '180', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '15' },
+        { title: 'Платных мест', value: '5' },
+        { title: 'Стоимость', value: '140 000 руб.' },
+      ],
+    },
+    {
+      id: 4,
+      faculty: 'unit_phys_math',
+      facultyName: 'Физико-математический факультет',
+      title: 'Разработка мобильных и web-приложений',
+      tags: [{ value: '09.03.02', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Информатика, Русский язык',
+      properties: { budgetPlaces: '30', passingScore: '220', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '30' },
+        { title: 'Платных мест', value: '15' },
+        { title: 'Стоимость', value: '125 000 руб.' },
+      ],
+    },
+    {
+      id: 5,
+      faculty: 'unit_general',
+      facultyName: 'Факультет общего и профессионального образования',
+      title: 'Информационные технологии в дизайне',
+      tags: [{ value: '09.03.02', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Информатика, Русский язык',
+      properties: { budgetPlaces: '12', passingScore: '170', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '12' },
+        { title: 'Платных мест', value: '10' },
+        { title: 'Стоимость', value: '118 000 руб.' },
+      ],
+    },
+    {
+      id: 6,
+      faculty: 'unit_general',
+      facultyName: 'Факультет общего и профессионального образования',
+      title: 'Мобильная робототехника и беспилотные авиационные системы',
+      tags: [{ value: '44.03.04', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }],
+      exams: 'Математика, Физика, Русский язык',
+      properties: { budgetPlaces: '18', passingScore: '200', studyMode: 'Очная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Очная (4 года)' },
+        { title: 'Бюджетных мест', value: '18' },
+        { title: 'Платных мест', value: '7' },
+        { title: 'Стоимость', value: '135 000 руб.' },
+      ],
+    },
+    {
+      id: 7,
+      faculty: 'unit_general',
+      facultyName: 'Факультет общего и профессионального образования',
+      title: 'Экономика и управление',
+      tags: [{ value: '44.03.04', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }, { value: 'Заочная', variant: 'green' }],
+      exams: 'Математика, Обществознание, Русский язык',
+      properties: { budgetPlaces: '20', passingScore: '155', studyMode: 'Заочная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Заочная (4,5 года)' },
+        { title: 'Бюджетных мест', value: '20' },
+        { title: 'Платных мест', value: '25' },
+        { title: 'Стоимость', value: '68 000 руб./год' },
+      ],
+    },
+    {
+      id: 8,
+      faculty: 'unit_general',
+      facultyName: 'Факультет общего и профессионального образования',
+      title: 'Информатика и ИИ в образовании',
+      tags: [{ value: '44.03.04', variant: 'red' }, { value: 'Бакалавриат', variant: 'blue' }, { value: 'Заочная', variant: 'green' }],
+      exams: 'Математика, Информатика, Русский язык',
+      properties: { budgetPlaces: '15', passingScore: '160', studyMode: 'Заочная' },
+      allProperties: [
+        { title: 'Форма и срок обучения', value: 'Заочная (4,5 года)' },
+        { title: 'Бюджетных мест', value: '15' },
+        { title: 'Платных мест', value: '20' },
+        { title: 'Стоимость', value: '65 000 руб./год' },
+      ],
+    },
+  ],
+};
