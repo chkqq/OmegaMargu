@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useSignal } from '@preact/signals';
 import { subjectsSignal, scoresSignal, totalScoreSignal, extraPointsSignal, setScore, setExtraPoints, getPayload } from '@/entities/subject/model';
 import { setResults, setError, setLoading } from '@/entities/speciality/model';
-import { fetchCalculatorResults } from '@/shared/api/calculator';
+import { fetchCalculatorResults } from '@/shared/api/index';
 import { MOCK_RESULTS } from '@/shared/api/mockData';
 import { SubjectInput } from '@/features/subject-input/SubjectInput';
 import styles from './ScoreForm.module.css';

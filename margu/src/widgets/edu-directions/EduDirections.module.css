@@ -1,0 +1,70 @@
+.section { margin-bottom: 56px; }
+
+.header {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-bottom: 10px;
+}
+@media (min-width: 768px) { .header { flex-direction: row; align-items: center; justify-content: space-between; } }
+
+.heading {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 700; text-transform: uppercase;
+}
+@media (min-width: 768px) { .heading { font-size: 28px; } }
+@media (min-width: 1280px) { .heading { font-size: 34px; } }
+
+.tabs {
+  display: flex;
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+
+.tab {
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px; font-weight: 600;
+  color: var(--clr-text-secondary);
+  transition: background var(--transition), color var(--transition);
+}
+.tabActive { background: var(--clr-accent); color: white; }
+
+.sub { font-size: 14px; color: var(--clr-text-secondary); margin-bottom: 24px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  overflow-x: auto;
+}
+@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); overflow: visible; } }
+
+.card {
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.card:hover { border-color: var(--clr-accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.cardIcon { font-size: 28px; }
+.cardTitle { font-size: 15px; font-weight: 800; }
+
+.professions { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.profession { font-size: 13px; color: var(--clr-text-secondary); }
+
+.count { font-size: 13px; font-weight: 700; color: var(--clr-accent); }
+
+.arrow {
+  position: absolute; top: 18px; right: 18px;
+  color: var(--clr-text-muted);
+  transition: color var(--transition);
+}
+.card:hover .arrow { color: var(--clr-accent); }

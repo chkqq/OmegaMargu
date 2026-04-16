@@ -1,0 +1,33 @@
+.placeholder {
+  width: 100%;
+  background: #e8eaf0;
+  border: 2px dashed #c5cadc;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .placeholder {
+  background: #1e2540;
+  border-color: #2d3454;
+  color: #4b5563;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  display: block;
+}

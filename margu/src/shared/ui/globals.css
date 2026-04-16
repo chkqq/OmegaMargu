@@ -57,3 +57,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 input { font-family: inherit; }
 ul, ol { list-style: none; }
 img { max-width: 100%; display: block; }
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --clr-bg: #0d1226;
+  --clr-surface: #141929;
+  --clr-surface-hover: #1e2540;
+  --clr-border: #2d3454;
+  --clr-text-primary: #f0f2ff;
+  --clr-text-secondary: #8892b0;
+  --clr-text-muted: #4b5563;
+  --clr-accent-light: #1a2550;
+  --clr-footer-bg: #090d1a;
+  --clr-score-inactive: #2d3454;
+  --clr-tag-red: #3d1515;
+  --clr-tag-red-text: #f87171;
+  --clr-tag-blue: #1e2d4d;
+  --clr-tag-blue-text: #93c5fd;
+  --clr-tag-green: #14281e;
+  --clr-tag-green-text: #6ee7b7;
+}
