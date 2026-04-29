@@ -52,7 +52,7 @@
   line-height: 0.98;
   font-weight: 400;
   letter-spacing: 0;
-  text-align: center;
+  text-align: right;
   color: var(--clr-text-primary);
   text-transform: uppercase;
 }

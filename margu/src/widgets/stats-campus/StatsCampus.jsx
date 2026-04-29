@@ -32,10 +32,10 @@ export function StatsCampus() {
         desc: featuredEvent.text || CAMPUS_CARDS[0].desc,
         btn: 'Посмотреть мероприятие',
         url: featuredEvent.url || '#',
-        image: featuredEvent.images?.[0],
+        image: featuredEvent.images?.[0] || campusGirls,
         counter: CAMPUS_CARDS[0].counter,
       }
-    : { ...CAMPUS_CARDS[0], url: '#', image: null };
+    : { ...CAMPUS_CARDS[0], url: '#', image: campusGirls };
 
   return (
     <section class={styles.section}>
@@ -52,15 +52,15 @@ export function StatsCampus() {
 
       <div class={styles.campusGrid}>
         <a href={eventCard.url} class={styles.eventsCard} aria-label={eventCard.title}>
-          <img src={campusGirls} alt="" class={styles.eventsImg} />
+          <img src={eventCard.image} alt="" class={styles.eventsImg} />
           <span class={styles.eventsPanel}>
             <span class={styles.eventsTop}>
-              <span class={styles.eventsTitle}>{CAMPUS_CARDS[0].title}</span>
+              <span class={styles.eventsTitle}>{eventCard.title}</span>
               <span class={styles.eventsCounter}>{eventCard.counter}</span>
             </span>
-            <span class={styles.eventsDesc}>{CAMPUS_CARDS[0].desc}</span>
+            <span class={styles.eventsDesc}>{eventCard.desc}</span>
             <span class={styles.eventsButton}>
-              {CAMPUS_CARDS[0].btn}
+              {eventCard.btn}
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                 <path d="M4 11h14M13 6l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>

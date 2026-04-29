@@ -1,10 +1,47 @@
 import { h } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
+import { fetchSpecialityCards } from '@/shared/api/index';
 import { MOCK_PROFESSIONS } from '@/shared/api/mockHome';
 import styles from './Professions.module.css';
 
+function readableProfession(card) {
+  const source = card.profile || card.title || '';
+  return source
+    .replace(/\b\d{2}\.\d{2}\.\d{2}\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 export function Professions() {
-  const visible = MOCK_PROFESSIONS.slice(0, 15);
-  const extra = 199;
+  const [professions, setProfessions] = useState(MOCK_PROFESSIONS);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchSpecialityCards()
+      .then(cards => {
+        const seen = new Set();
+        const next = cards
+          .map(readableProfession)
+          .filter(Boolean)
+          .filter(item => {
+            const key = item.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+
+        if (active && next.length) setProfessions(next);
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const visible = professions.slice(0, 15);
+  const extra = Math.max(0, professions.length - visible.length);
   const HelpCard = ({ className = '' }) => (
     <a href="#" class={`${styles.helpBtn} ${className}`}>
       <span>Не знаешь, кем хочешь стать?<br/>Поможем с выбором профессии</span>
@@ -26,7 +63,7 @@ export function Professions() {
         {visible.map(p => (
           <button key={p} class={styles.tag}>{p}</button>
         ))}
-        <button class={`${styles.tag} ${styles.tagMore}`}>+{extra}</button>
+        {extra > 0 && <button class={`${styles.tag} ${styles.tagMore}`}>+{extra}</button>}
       </div>
       <HelpCard className={styles.helpMobile} />
     </section>

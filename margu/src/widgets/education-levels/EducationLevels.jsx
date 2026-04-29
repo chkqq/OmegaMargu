@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
+import { fetchSpecialityCards } from '@/shared/api/index';
 import styles from './EducationLevels.module.css';
 
 const LEVELS = [
@@ -44,7 +46,58 @@ const DISPLAY_LEVELS = ['spo', 'bachelor', 'master', 'postgrad']
   .map(key => LEVELS.find(level => level.key === key))
   .filter(Boolean);
 
+function detectLevelKey(card) {
+  const value = `${card.level ?? ''} ${card.title ?? ''} ${card.durationStudy ?? ''}`.toLowerCase();
+  if (value.includes('спо') || value.includes('среднее профессион')) return 'spo';
+  if (value.includes('магистр')) return 'master';
+  if (value.includes('аспиран') || value.includes('ординат')) return 'postgrad';
+  if (value.includes('бакалав') || value.includes('специал')) return 'bachelor';
+  return null;
+}
+
+function apiLevelCards(cards) {
+  const grouped = new Map(DISPLAY_LEVELS.map(level => [level.key, []]));
+  cards.forEach(card => {
+    const key = detectLevelKey(card);
+    if (key && grouped.has(key)) grouped.get(key).push(card);
+  });
+
+  return DISPLAY_LEVELS.map(level => {
+    const levelCards = grouped.get(level.key) ?? [];
+    if (!levelCards.length) return level;
+
+    const budgetPlaces = levelCards.reduce((sum, card) => sum + Number(card.budgetPlace ?? 0), 0);
+    const modes = [...new Set(levelCards.map(card => card.properties?.studyMode).filter(Boolean))];
+    const features = [
+      `${levelCards.length} программ`,
+      budgetPlaces > 0 ? `${budgetPlaces} бюджетных мест` : null,
+      modes.length ? `Формы обучения: ${modes.slice(0, 3).join(', ')}` : null,
+    ].filter(Boolean);
+
+    return {
+      ...level,
+      features: features.length ? features : level.features,
+    };
+  });
+}
+
 export function EducationLevels() {
+  const [levels, setLevels] = useState(DISPLAY_LEVELS);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchSpecialityCards()
+      .then(cards => {
+        if (active && cards.length) setLevels(apiLevelCards(cards));
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section class={styles.section}>
       <div class={styles.intro}>
@@ -53,7 +106,7 @@ export function EducationLevels() {
       </div>
 
       <div class={styles.grid}>
-        {DISPLAY_LEVELS.map(level => (
+        {levels.map(level => (
           <div key={level.key} class={styles.card}
             style={{ '--card-color': level.color, '--card-dark': level.darkColor }}>
             <h3 class={styles.cardTitle}>{level.title}</h3>

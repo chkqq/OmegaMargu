@@ -1,4 +1,6 @@
 import { h } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
+import { fetchPartners } from '@/shared/api/index';
 import styles from './Partners.module.css';
 import sponsor1 from '@/assets/design/sponsor-1.png';
 import sponsor2 from '@/assets/design/sponsor-2.png';
@@ -17,6 +19,27 @@ const SPONSORS = [
 ];
 
 export function Partners() {
+  const [sponsors, setSponsors] = useState(SPONSORS);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchPartners(6)
+      .then(items => {
+        const next = items.slice(0, 6).map((item, index) => ({
+          src: item.image || SPONSORS[index % SPONSORS.length].src,
+          alt: item.title || SPONSORS[index % SPONSORS.length].alt,
+        }));
+
+        if (active && next.length) setSponsors(next);
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
   return (
     <section class={styles.section}>
       <h2 class={styles.heading}>Наши выпускники уже здесь</h2>
@@ -25,7 +48,7 @@ export function Partners() {
         был реальный путь в серьёзную компанию: проекты, стажировки, карьерный центр
       </p>
       <div class={styles.logosGrid}>
-        {SPONSORS.map(sponsor => (
+        {sponsors.map(sponsor => (
           <img key={sponsor.alt} src={sponsor.src} alt={sponsor.alt} class={styles.logoImg} />
         ))}
       </div>

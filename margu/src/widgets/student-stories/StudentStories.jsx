@@ -1,5 +1,6 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import { fetchGraduateFeedback, fetchStudentFeedback } from '@/shared/api/index';
 import styles from './StudentStories.module.css';
 import story1 from '@/assets/design/story-1.png'
 import story2 from '@/assets/design/story-2.png';
@@ -37,15 +38,60 @@ const STORIES = [
   },
 ];
 
+const FALLBACK_IMAGES = [story1, story2, story3, story4];
+
 export function StudentStories() {
-  const [stories] = useState(STORIES);
+  const [stories, setStories] = useState(STORIES);
   const [activeVideo, setActiveVideo] = useState(null);
+  const scrollerRef = useRef(null);
+
+  useEffect(() => {
+    let active = true;
+
+    Promise.allSettled([
+      fetchStudentFeedback(),
+      fetchGraduateFeedback(),
+    ]).then(([studentResult, graduateResult]) => {
+      if (!active) return;
+
+      const apiStories = [
+        ...(studentResult.status === 'fulfilled' ? studentResult.value.info ?? [] : []),
+        ...(graduateResult.status === 'fulfilled' ? graduateResult.value.info ?? [] : []),
+      ].slice(0, 4).map((item, index) => ({
+        id: item.feedbackId ?? item.id ?? index,
+        imageUrl: item.imageUrl || FALLBACK_IMAGES[index % FALLBACK_IMAGES.length],
+        name: item.name || item.cn || STORIES[index]?.name || 'Студент МарГУ',
+        description: item.description || item.text || STORIES[index]?.description || item.type || '',
+        videoUrl: item.videoUrl || STORIES[index]?.videoUrl,
+      }));
+
+      if (apiStories.length) setStories(apiStories);
+    });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleWheel = event => {
+    const scroller = scrollerRef.current;
+    if (!scroller || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const nextScroll = Math.max(0, Math.min(maxScroll, scroller.scrollLeft + event.deltaY));
+    if (nextScroll !== scroller.scrollLeft) {
+      event.preventDefault();
+      scroller.scrollLeft = nextScroll;
+    }
+  };
 
   return (
     <section class={styles.section}>
       <h2 class={styles.heading}>Истории студентов:<br/>без сценария и красивых слов</h2>
 
-      <div class={styles.grid}>
+      <div class={styles.grid} ref={scrollerRef} onWheel={handleWheel}>
         {stories.map(story => (
           <div key={story.id ?? story.feedbackId ?? story.cn} class={styles.card} onClick={() => story.videoUrl && setActiveVideo(story.videoUrl)}>
             <div class={styles.imgWrap}>

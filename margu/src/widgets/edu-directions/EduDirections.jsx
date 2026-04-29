@@ -1,22 +1,35 @@
 import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { fetchEducationDirections } from '@/shared/api/index';
+import { fetchEducationDirections, fetchEducationFaculties } from '@/shared/api/index';
 import { MOCK_EDU_DIRECTIONS } from '@/shared/api/mockHome';
 import styles from './EduDirections.module.css';
 
 export function EduDirections() {
   const [tab, setTab] = useState('directions');
-  const [directions, setDirections] = useState(MOCK_EDU_DIRECTIONS);
+  const [directions, setDirections] = useState({
+    directions: MOCK_EDU_DIRECTIONS,
+    faculties: MOCK_EDU_DIRECTIONS,
+  });
   const scrollerRef = useRef(null);
 
   useEffect(() => {
     let active = true;
 
-    fetchEducationDirections(8)
-      .then(data => {
-        if (active && data.length) setDirections(data);
-      })
-      .catch(() => {});
+    Promise.allSettled([
+      fetchEducationDirections(12),
+      fetchEducationFaculties(12),
+    ]).then(([directionResult, facultyResult]) => {
+      if (!active) return;
+
+      setDirections(prev => ({
+        directions: directionResult.status === 'fulfilled' && directionResult.value.length
+          ? directionResult.value
+          : prev.directions,
+        faculties: facultyResult.status === 'fulfilled' && facultyResult.value.length
+          ? facultyResult.value
+          : prev.faculties,
+      }));
+    });
 
     return () => {
       active = false;
@@ -51,7 +64,7 @@ export function EduDirections() {
       <p class={styles.sub}>Получите востребованную профессию: направления бакалавриата/специалитета под запросы рынка труда</p>
 
       <div class={styles.grid} ref={scrollerRef} onWheel={handleWheel}>
-        {directions.map(dir => (
+        {directions[tab].map(dir => (
           <a key={dir.id} href="#" class={styles.card}>
             <div class={styles.cardIcon}>{dir.icon}</div>
             <h3 class={styles.cardTitle}>{dir.title}</h3>
