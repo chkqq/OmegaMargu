@@ -1,19 +1,19 @@
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
-import { ImagePlaceholder } from '@/shared/ui/ImagePlaceholder';
-import { fetchStudentFeedback } from '@/shared/api/index';
-import { MOCK_STORIES } from '@/shared/api/mockHome';
+import { useState } from 'preact/hooks';
 import styles from './StudentStories.module.css';
+import story1 from '@/assets/design/story-1.png'
+import story2 from '@/assets/design/story-2.png';
+import story3 from '@/assets/design/story-3.png';
+
+const STORIES = [
+  { id: 1, imageUrl: story1, videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+  { id: 2, imageUrl: story2, videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+  { id: 3, imageUrl: story3, videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+];
 
 export function StudentStories() {
-  const [stories, setStories] = useState(MOCK_STORIES);
+  const [stories] = useState(STORIES);
   const [activeVideo, setActiveVideo] = useState(null);
-
-  useEffect(() => {
-    fetchStudentFeedback()
-      .then(data => data.info?.length && setStories(data.info.slice(0, 3)))
-      .catch(() => {});
-  }, []);
 
   return (
     <section class={styles.section}>
@@ -21,26 +21,9 @@ export function StudentStories() {
 
       <div class={styles.grid}>
         {stories.map(story => (
-          <div key={story.id} class={styles.card} onClick={() => story.videoUrl && setActiveVideo(story.videoUrl)}>
+          <div key={story.id ?? story.feedbackId ?? story.cn} class={styles.card} onClick={() => story.videoUrl && setActiveVideo(story.videoUrl)}>
             <div class={styles.imgWrap}>
-              <ImagePlaceholder
-                label={`Фото — ${story.name ?? story.cn}`}
-                src={story.imageUrl}
-                aspectRatio="3/4"
-                className={styles.img}
-              />
-              {story.videoUrl && (
-                <div class={styles.playBtn}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.6)"/>
-                    <path d="M10 8l6 4-6 4V8z" fill="white"/>
-                  </svg>
-                </div>
-              )}
-              <div class={styles.overlay}>
-                <p class={styles.storyName}>{story.name ?? story.cn}</p>
-                <p class={styles.storyDesc}>{story.description ?? story.text}</p>
-              </div>
+              <img src={story.imageUrl} alt="" class={styles.img} />
             </div>
           </div>
         ))}

@@ -36,6 +36,19 @@ export function setExtraPoints(points) {
   extraPointsSignal.value = points;
 }
 
+/** @param {{ id: number, value: string, minScore?: number }[]} subjects */
+export function setSubjects(subjects) {
+  if (!subjects.length) return;
+  const allowedIds = new Set(subjects.map(subject => subject.id));
+  subjectsSignal.value = subjects.map(subject => ({
+    ...subject,
+    minScore: subject.minScore ?? MIN_SCORES[subject.id] ?? 40,
+  }));
+  scoresSignal.value = Object.fromEntries(
+    Object.entries(scoresSignal.value).filter(([id]) => allowedIds.has(Number(id)))
+  );
+}
+
 /**
  * Returns subjects with entered (non-null) scores formatted for API
  * @returns {{ subject_id: number, points: number }[]}

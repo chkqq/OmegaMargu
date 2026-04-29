@@ -1,49 +1,43 @@
-.main { padding: 24px 0 0; }
-@media (min-width: 768px) { .main { padding: 32px 0 0; } }
+.main {
+  padding: 18px 0 0;
+}
 
 .container {
-  max-width: 1440px;
+  width: 100%;
+  max-width: 1836px;
   margin: 0 auto;
   padding: 0 16px;
 }
-@media (min-width: 640px) { .container { padding: 0 24px; } }
-@media (min-width: 768px) { .container { padding: 0 28px; } }
-@media (min-width: 1280px) { .container { padding: 0 48px; } }
-@media (min-width: 1920px) { .container { padding: 0 80px; } }
 
-/* Calc CTA banner */
 .calcBanner {
-  background: linear-gradient(135deg, var(--clr-accent) 0%, #2952e3 100%);
-  border-radius: var(--radius-xl);
-  padding: 28px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-@media (min-width: 768px) {
-  .calcBanner { flex-direction: row; align-items: center; justify-content: space-between; }
+  display: block;
+  margin: 118px 0 110px;
+  border-radius: 36px;
+  overflow: hidden;
 }
 
-.calcBannerText h2 {
-  font-family: var(--font-display);
-  font-size: 22px; font-weight: 900;
-  color: white;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+.calcBanner picture {
+  display: block;
 }
-@media (min-width: 768px) { .calcBannerText h2 { font-size: 28px; } }
 
-.calcBannerText p { color: rgba(255,255,255,0.75); font-size: 15px; }
-
-.calcBannerBtn {
-  padding: 13px 24px;
-  background: white;
-  color: var(--clr-accent);
-  border-radius: var(--radius-pill);
-  font-size: 15px; font-weight: 800;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: transform var(--transition), box-shadow var(--transition);
+.calcBannerImg {
+  width: 100%;
+  height: auto;
+  display: block;
 }
-.calcBannerBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+@media (max-width: 767px) {
+  .main { padding-top: 8px; }
+  .container { padding: 0 15px; }
+  .calcBanner {
+    margin: 70px 0 54px;
+    border-radius: 18px;
+  }
+  .calcBannerImg {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container { padding: 0 60px; }
+}

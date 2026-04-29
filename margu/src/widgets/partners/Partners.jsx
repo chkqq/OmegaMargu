@@ -1,6 +1,7 @@
 import { h } from 'preact';
-import { MOCK_PARTNERS } from '@/shared/api/mockHome';
 import styles from './Partners.module.css';
+import partnersStrip from '@/assets/design/partners-strip.png';
+import partnersMobile from '@/assets/design/partners-mobile.png';
 
 export function Partners() {
   return (
@@ -10,16 +11,10 @@ export function Partners() {
         Мы не обещаем «офер по щелчку пальцев», но строим программы так, чтобы у тебя
         был реальный путь в серьёзную компанию: проекты, стажировки, карьерный центр
       </p>
-      <div class={styles.logos}>
-        {MOCK_PARTNERS.map(p => (
-          <div key={p.title} class={styles.logo}>
-            {p.image
-              ? <img src={p.image} alt={p.title} class={styles.logoImg} />
-              : <span class={styles.logoText}>{p.title}</span>
-            }
-          </div>
-        ))}
-      </div>
+      <picture class={styles.logosPicture}>
+        <source media="(max-width: 767px)" srcSet={partnersMobile} />
+        <img src={partnersStrip} alt="Партнеры МарГУ" class={styles.logosImg} />
+      </picture>
     </section>
   );
 }

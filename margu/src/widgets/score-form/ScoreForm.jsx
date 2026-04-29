@@ -3,7 +3,6 @@ import { useSignal } from '@preact/signals';
 import { subjectsSignal, scoresSignal, totalScoreSignal, extraPointsSignal, setScore, setExtraPoints, getPayload } from '@/entities/subject/model';
 import { setResults, setError, setLoading } from '@/entities/speciality/model';
 import { fetchCalculatorResults } from '@/shared/api/index';
-import { MOCK_RESULTS } from '@/shared/api/mockData';
 import { SubjectInput } from '@/features/subject-input/SubjectInput';
 import styles from './ScoreForm.module.css';
 
@@ -26,9 +25,7 @@ export function ScoreForm() {
       const data = await fetchCalculatorResults(payload);
       setResults(data.specialities ?? []);
     } catch (err) {
-      // Fallback to mock data in dev
-      console.warn('API недоступен, используем тестовые данные:', err.message);
-      setResults(MOCK_RESULTS.specialities);
+      setError(err?.message ?? 'Не удалось получить результаты калькулятора');
     } finally {
       loading.value = false;
       // Scroll to results

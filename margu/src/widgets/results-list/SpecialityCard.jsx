@@ -6,41 +6,33 @@ import styles from './SpecialityCard.module.css';
 export function SpecialityCard({ speciality }) {
   const [expanded, setExpanded] = useState(false);
   const { title, tags, properties, allProperties, exams } = speciality;
+  const code = tags.find(tag => /\d{2}\.\d{2}\.\d{2}/.test(tag.value))?.value ?? tags[0]?.value;
+  const level = tags.find(tag => !/\d{2}\.\d{2}\.\d{2}/.test(tag.value) && tag.variant !== 'green')?.value ?? 'Бакалавриат';
+  const mode = properties.studyMode || tags.find(tag => tag.variant === 'green')?.value;
 
   return (
     <article class={`${styles.card} ${expanded ? styles.expanded : ''}`}>
-      <div class={styles.tags}>
-        {tags.map(tag => (
-          <span key={tag.value} class={`${styles.tag} ${styles[`tag_${tag.variant}`]}`}>
-            {tag.value}
-          </span>
-        ))}
+      <div class={styles.topline}>
+        <span class={styles.code}>{code}</span>
+        <div class={styles.tags}>
+          {level && <span class={`${styles.tag} ${styles.tag_blue}`}>{level}</span>}
+          {mode && <span class={`${styles.tag} ${styles.tag_green}`}>{mode}</span>}
+        </div>
       </div>
 
       <h3 class={styles.title}>{title}</h3>
 
       <div class={styles.meta}>
-        <span class={styles.metaItem}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/>
-            <path d="M7 4v3.5l2 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-          </svg>
-          {properties.studyMode}
-        </span>
         {properties.budgetPlaces && (
           <span class={styles.metaItem}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1L9 5l4.5.5-3.25 3.5.75 4.5L7 11.5 3 13.5l.75-4.5L.5 5.5 5 5 7 1z" stroke="currentColor" stroke-width="1.2"/>
-            </svg>
-            Бюджет: {properties.budgetPlaces} мест
+            <span>Бюджетных мест</span>
+            <strong>{properties.budgetPlaces}</strong>
           </span>
         )}
-        {properties.passingScore && (
+        {(speciality.offBudgetPlace || speciality.offBudgetPlaces || properties.paidPlaces || properties.offBudgetPlaces) && (
           <span class={styles.metaItem}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 11L5 8l2.5 2.5L12 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Проходной: {properties.passingScore}
+            <span>Платных мест</span>
+            <strong>{speciality.offBudgetPlace ?? speciality.offBudgetPlaces ?? properties.paidPlaces ?? properties.offBudgetPlaces}</strong>
           </span>
         )}
       </div>

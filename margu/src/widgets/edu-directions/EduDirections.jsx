@@ -1,10 +1,26 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import { fetchEducationDirections } from '@/shared/api/index';
 import { MOCK_EDU_DIRECTIONS } from '@/shared/api/mockHome';
 import styles from './EduDirections.module.css';
 
 export function EduDirections() {
   const [tab, setTab] = useState('directions');
+  const [directions, setDirections] = useState(MOCK_EDU_DIRECTIONS);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchEducationDirections(4)
+      .then(data => {
+        if (active && data.length) setDirections(data);
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <section class={styles.section} id="directions">
@@ -20,14 +36,14 @@ export function EduDirections() {
       <p class={styles.sub}>Получите востребованную профессию: направления бакалавриата/специалитета под запросы рынка труда</p>
 
       <div class={styles.grid}>
-        {MOCK_EDU_DIRECTIONS.map(dir => (
+        {directions.map(dir => (
           <a key={dir.id} href="#" class={styles.card}>
             <div class={styles.cardIcon}>{dir.icon}</div>
             <h3 class={styles.cardTitle}>{dir.title}</h3>
             <div class={styles.professions}>
               {dir.professions.map(p => <span key={p} class={styles.profession}>{p}</span>)}
             </div>
-            <span class={styles.count}>{dir.count} специальностей</span>
+            <span class={styles.count}>{dir.count ? `${dir.count} специальностей` : 'Смотреть программы'}</span>
             <svg class={styles.arrow} width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M5 13L13 5M13 5H7M13 5v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>

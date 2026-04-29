@@ -1,38 +1,40 @@
 /* ===== CSS VARIABLES & RESET ===== */
 :root {
-  --clr-bg: #f4f5f7;
+  --clr-bg: #f4f4f6;
   --clr-surface: #ffffff;
-  --clr-surface-hover: #f0f1f5;
-  --clr-border: #e2e4ea;
-  --clr-border-focus: #1a3fcb;
-  --clr-border-error: #e03a3a;
-  --clr-text-primary: #0d1226;
-  --clr-text-secondary: #6b7280;
-  --clr-text-muted: #9ca3af;
-  --clr-accent: #1a3fcb;
-  --clr-accent-light: #eef1fb;
-  --clr-accent-hover: #1233a8;
-  --clr-tag-red: #fde8e8;
-  --clr-tag-red-text: #b91c1c;
-  --clr-tag-blue: #dbeafe;
-  --clr-tag-blue-text: #1d4ed8;
-  --clr-tag-green: #dcfce7;
-  --clr-tag-green-text: #166534;
-  --clr-score-active: #1a3fcb;
-  --clr-score-inactive: #e2e4ea;
-  --clr-footer-bg: #0d1226;
-  --clr-footer-text: #9ca3af;
+  --clr-surface-hover: #eeeeF2;
+  --clr-panel: #dedfe8;
+  --clr-border: #d8dae4;
+  --clr-border-focus: #5878f4;
+  --clr-border-error: #ff4d5f;
+  --clr-text-primary: #242428;
+  --clr-text-secondary: #757985;
+  --clr-text-muted: #9498a5;
+  --clr-accent: #5878f4;
+  --clr-accent-light: #eef2ff;
+  --clr-accent-hover: #4267ed;
+  --clr-danger: #ff5264;
+  --clr-tag-red: #ffffff;
+  --clr-tag-red-text: #5878f4;
+  --clr-tag-blue: #ffffff;
+  --clr-tag-blue-text: #5878f4;
+  --clr-tag-green: #ffffff;
+  --clr-tag-green-text: #ff9f1c;
+  --clr-score-active: #08c86f;
+  --clr-score-inactive: #ffffff;
+  --clr-footer-bg: #202020;
+  --clr-footer-text: #c8c8c8;
   --clr-white: #ffffff;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
   --radius-pill: 999px;
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-sm: 0 1px 3px rgba(25,28,40,0.04);
+  --shadow-md: 0 12px 30px rgba(25,28,40,0.06);
+  --shadow-lg: 0 18px 50px rgba(25,28,40,0.10);
 
   --font-display: 'Unbounded', sans-serif;
   --font-body: 'Manrope', sans-serif;
@@ -48,15 +50,20 @@ body {
   font-family: var(--font-body);
   background: var(--clr-bg);
   color: var(--clr-text-primary);
-  line-height: 1.6;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
 }
 
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
-input { font-family: inherit; }
+input, textarea { font-family: inherit; }
 ul, ol { list-style: none; }
 img { max-width: 100%; display: block; }
+
+#app {
+  min-height: 100vh;
+  background: var(--clr-bg);
+}
 
 /* ===== DARK THEME ===== */
 [data-theme="dark"] {

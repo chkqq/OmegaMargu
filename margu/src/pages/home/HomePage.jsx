@@ -8,17 +8,18 @@ import { StudentStories } from '@/widgets/student-stories/StudentStories';
 import { Partners } from '@/widgets/partners/Partners';
 import { ContactForm } from '@/widgets/contact-form/ContactForm';
 import styles from './HomePage.module.css';
+import calcBanner from '@/assets/design/calc-banner.png';
+import calcBannerMobile from '@/assets/design/calc-banner-mobile.png';
 
 /** Calculator ЕГЭ CTA banner */
 function CalcBanner() {
   return (
-    <div class={styles.calcBanner}>
-      <div class={styles.calcBannerText}>
-        <h2>Калькулятор ЕГЭ</h2>
-        <p>Узнай свои шансы по ЕГЭ за 30 секунд</p>
-      </div>
-      <a href="/calculator" class={styles.calcBannerBtn}>Открыть калькулятор →</a>
-    </div>
+    <a href="/calculator" class={styles.calcBanner} aria-label="Открыть калькулятор ЕГЭ">
+      <picture>
+        <source media="(max-width: 767px)" srcSet={calcBannerMobile} />
+        <img src={calcBanner} alt="" class={styles.calcBannerImg} />
+      </picture>
+    </a>
   );
 }
 

@@ -1,35 +1,50 @@
-.section { margin-bottom: 56px; }
+.section {
+  margin-bottom: 118px;
+}
 
 .heading {
-  font-family: var(--font-display);
-  font-size: 22px; font-weight: 700;
+  max-width: 680px;
+  margin-bottom: 34px;
+  font-size: clamp(54px, 4.6vw, 74px);
+  line-height: 1.1;
+  font-weight: 400;
   text-transform: uppercase;
-  margin-bottom: 10px;
-}
-@media (min-width: 768px) { .heading { font-size: 28px; } }
-@media (min-width: 1280px) { .heading { font-size: 34px; } }
-
-.sub { font-size: 14px; color: var(--clr-text-secondary); max-width: 560px; line-height: 1.6; margin-bottom: 28px; }
-
-.logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
 }
 
-.logo {
-  background: var(--clr-surface);
-  border: 1.5px solid var(--clr-border);
-  border-radius: var(--radius-lg);
-  padding: 16px 28px;
-  display: flex; align-items: center; justify-content: center;
-  min-width: 120px;
-  transition: border-color var(--transition), transform var(--transition);
+.sub {
+  max-width: 760px;
+  margin-bottom: 54px;
+  font-size: 19px;
+  line-height: 1.2;
+  color: var(--clr-text-secondary);
 }
-.logo:hover { border-color: var(--clr-accent); transform: translateY(-2px); }
 
-.logoImg { max-height: 36px; max-width: 120px; object-fit: contain; filter: grayscale(1); transition: filter var(--transition); }
-.logo:hover .logoImg { filter: none; }
+.logosPicture,
+.logosImg {
+  display: block;
+  width: 100%;
+  max-width: 1560px;
+}
 
-.logoText { font-size: 14px; font-weight: 700; color: var(--clr-text-secondary); }
+.logosImg {
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .section { margin-bottom: 76px; }
+  .heading {
+    margin-bottom: 22px;
+    font-size: 25px;
+    line-height: 1.14;
+  }
+  .sub {
+    margin-bottom: 24px;
+    font-size: 11px;
+    line-height: 1.25;
+  }
+  .logosImg {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+  }
+}

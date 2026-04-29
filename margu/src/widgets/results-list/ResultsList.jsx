@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { groupedSignal, statusSignal } from '@/entities/speciality/model';
+import { errorSignal, groupedSignal, statusSignal } from '@/entities/speciality/model';
 import { FilterPanel } from '@/features/filter-results/FilterPanel';
 import { SpecialityCard } from './SpecialityCard';
 import styles from './ResultsList.module.css';
@@ -36,13 +36,18 @@ export function ResultsList() {
       )}
 
       {status === 'empty' && <EmptyState />}
-      {status === 'error' && <ErrorState />}
+      {status === 'error' && <ErrorState message={errorSignal.value} />}
 
       {status === 'success' && (
-        <div class={styles.groups}>
-          {Object.entries(groups).map(([key, group]) => (
-            <FacultyGroup key={key} name={group.name} items={group.items} />
-          ))}
+        <div class={styles.resultsLayout}>
+          <div class={styles.groups}>
+            {Object.entries(groups).map(([key, group]) => (
+              <FacultyGroup key={key} name={group.name} items={group.items} />
+            ))}
+          </div>
+          <aside class={styles.filterSidebar}>
+            <FilterPanel embedded onClose={() => {}} />
+          </aside>
         </div>
       )}
 
@@ -92,11 +97,11 @@ function EmptyState() {
   );
 }
 
-function ErrorState() {
+function ErrorState({ message }) {
   return (
     <div class={styles.emptyState}>
       <div class={styles.emptyIcon}>⚠️</div>
-      <p class={styles.emptyText}>Произошла ошибка при загрузке. Попробуйте ещё раз.</p>
+      <p class={styles.emptyText}>{message || 'Произошла ошибка при загрузке. Попробуйте ещё раз.'}</p>
     </div>
   );
 }

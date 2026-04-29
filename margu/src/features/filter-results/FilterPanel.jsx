@@ -8,9 +8,9 @@ const DIRECTIONS = ['Информационные технологии', 'Пед
 const ADMISSION = ['Бюджет', 'Платно'];
 
 /**
- * @param {{ onClose: () => void }} props
+ * @param {{ onClose: () => void, embedded?: boolean }} props
  */
-export function FilterPanel({ onClose }) {
+export function FilterPanel({ onClose, embedded = false }) {
   const filter = filterSignal.value;
 
   /**
@@ -25,14 +25,13 @@ export function FilterPanel({ onClose }) {
 
   const reset = () => updateFilter({ studyMode: [], admission: [], directions: [] });
 
-  return (
-    <div class={styles.overlay} onClick={e => e.target === e.currentTarget && onClose()}>
-      <div class={styles.panel}>
-        <button class={styles.close} onClick={onClose} aria-label="Закрыть фильтр">
+  const content = (
+      <div class={`${styles.panel} ${embedded ? styles.embedded : ''}`}>
+        {!embedded && <button class={styles.close} onClick={onClose} aria-label="Закрыть фильтр">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-        </button>
+        </button>}
 
         <FilterGroup title="ОСНОВАНИЯ ПОСТУПЛЕНИЯ" items={ADMISSION} selected={filter.admission ?? []}
           onToggle={v => toggle('admission', v)} />
@@ -41,11 +40,18 @@ export function FilterPanel({ onClose }) {
         <FilterGroup title="ОБРАЗОВАТЕЛЬНЫЕ НАПРАВЛЕНИЯ" items={DIRECTIONS} selected={filter.directions ?? []}
           onToggle={v => toggle('directions', v)} />
 
-        <div class={styles.actions}>
+        {!embedded && <div class={styles.actions}>
           <button class={styles.resetBtn} onClick={reset}>Сбросить всё</button>
           <button class={styles.applyBtn} onClick={onClose}>Применить</button>
-        </div>
+        </div>}
       </div>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <div class={styles.overlay} onClick={e => e.target === e.currentTarget && onClose()}>
+      {content}
     </div>
   );
 }

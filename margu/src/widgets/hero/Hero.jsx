@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { ImagePlaceholder } from '@/shared/ui/ImagePlaceholder';
 import styles from './Hero.module.css';
+import heroStudent from '@/assets/design/hero-student.png';
 
 const SLIDES = [
   {
@@ -30,10 +30,7 @@ export function Hero() {
 
   return (
     <section class={styles.hero}>
-      {/* Background image placeholder */}
-      <div class={styles.bg}>
-        <ImagePlaceholder label="Фото главного баннера" aspectRatio="unset" className={styles.bgImg} />
-      </div>
+      <img src={heroStudent} alt="" class={styles.bgImg} />
 
       <div class={styles.content}>
         <div class={styles.card}>
@@ -48,7 +45,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Slide controls */}
       <div class={styles.controls}>
         <button class={styles.arrow} onClick={() => setCurrent((current - 1 + SLIDES.length) % SLIDES.length)}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

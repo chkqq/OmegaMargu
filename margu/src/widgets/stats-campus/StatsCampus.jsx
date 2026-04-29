@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { ImagePlaceholder } from '@/shared/ui/ImagePlaceholder';
-import { fetchInfoStats } from '@/shared/api/index';
+import { fetchEvents, fetchInfoStats } from '@/shared/api/index';
 import { MOCK_STATS } from '@/shared/api/mockHome';
 import styles from './StatsCampus.module.css';
+import campusEvents from '@/assets/design/campus-events.png';
 
 const CAMPUS_CARDS = [
   { key: 'events', title: 'Мероприятия и развлечения', desc: 'Студенческие вечеринки, творческие конкурсы, спортивные состязания — выбирай и участвуй!', btn: 'Посмотреть мероприятия', counter: '1/4' },
@@ -14,10 +14,28 @@ const CAMPUS_CARDS = [
 
 export function StatsCampus() {
   const [stats, setStats] = useState(MOCK_STATS);
+  const [featuredEvent, setFeaturedEvent] = useState(null);
 
   useEffect(() => {
     fetchInfoStats().then(setStats).catch(() => {/* use mock */});
+    fetchEvents()
+      .then(data => {
+        const firstFacultyEvent = data.faculties?.flatMap(faculty => faculty.events ?? [])?.[0];
+        setFeaturedEvent(data.university?.[0] ?? firstFacultyEvent ?? null);
+      })
+      .catch(() => {});
   }, []);
+
+  const eventCard = featuredEvent
+    ? {
+        title: featuredEvent.title,
+        desc: featuredEvent.text || CAMPUS_CARDS[0].desc,
+        btn: 'Посмотреть мероприятие',
+        url: featuredEvent.url || '#',
+        image: featuredEvent.images?.[0],
+        counter: CAMPUS_CARDS[0].counter,
+      }
+    : { ...CAMPUS_CARDS[0], url: '#', image: null };
 
   return (
     <section class={styles.section}>
@@ -34,15 +52,9 @@ export function StatsCampus() {
 
       <div class={styles.campusGrid}>
         {/* Big events card with image */}
-        <div class={styles.eventsCard}>
-          <ImagePlaceholder label="Фото мероприятий" aspectRatio="4/3" className={styles.eventsImg} />
-          <div class={styles.eventsContent}>
-            {CAMPUS_CARDS[0].counter && <span class={styles.counter}>{CAMPUS_CARDS[0].counter}</span>}
-            <h3 class={styles.campusCardTitle}>{CAMPUS_CARDS[0].title}</h3>
-            <p class={styles.campusCardDesc}>{CAMPUS_CARDS[0].desc}</p>
-            <a href="#" class={styles.campusBtn}>{CAMPUS_CARDS[0].btn}</a>
-          </div>
-        </div>
+        <a href={eventCard.url} class={styles.eventsCard} aria-label={eventCard.title}>
+          <img src={campusEvents} alt="" class={styles.eventsImg} />
+        </a>
 
         {/* Small info cards */}
         <div class={styles.infoCards}>

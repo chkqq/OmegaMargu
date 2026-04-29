@@ -40,14 +40,20 @@ const LEVELS = [
   },
 ];
 
+const DISPLAY_LEVELS = ['spo', 'bachelor', 'master', 'postgrad']
+  .map(key => LEVELS.find(level => level.key === key))
+  .filter(Boolean);
+
 export function EducationLevels() {
   return (
     <section class={styles.section}>
-      <h2 class={styles.heading}>Маршрут в профессию</h2>
-      <p class={styles.sub}>Школа заканчивается, а дальше — не страшно. Поступай на тот уровень, который подходит тебе сейчас. Продолжить всегда можно.</p>
+      <div class={styles.intro}>
+        <h2 class={styles.heading}>Маршрут в профессию</h2>
+        <p class={styles.sub}>Школа заканчивается, а дальше — не страшно. Поступай на тот уровень, который подходит тебе сейчас. Продолжить всегда можно.</p>
+      </div>
 
       <div class={styles.grid}>
-        {LEVELS.map(level => (
+        {DISPLAY_LEVELS.map(level => (
           <div key={level.key} class={styles.card}
             style={{ '--card-color': level.color, '--card-dark': level.darkColor }}>
             <h3 class={styles.cardTitle}>{level.title}</h3>
@@ -62,7 +68,7 @@ export function EducationLevels() {
                 </li>
               ))}
             </ul>
-            <a href={level.href} class={styles.cardBtn}>Посмотреть программы →</a>
+            <a href={level.href} class={styles.cardBtn}>Посмотреть программы</a>
           </div>
         ))}
       </div>
