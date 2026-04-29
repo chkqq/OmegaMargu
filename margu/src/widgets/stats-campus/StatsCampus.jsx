@@ -3,7 +3,7 @@ import { useState, useEffect } from 'preact/hooks';
 import { fetchEvents, fetchInfoStats } from '@/shared/api/index';
 import { MOCK_STATS } from '@/shared/api/mockHome';
 import styles from './StatsCampus.module.css';
-import campusEvents from '@/assets/design/campus-events.png';
+import campusGirls from '@/assets/design/campus-girls.png';
 
 const CAMPUS_CARDS = [
   { key: 'events', title: 'Мероприятия и развлечения', desc: 'Студенческие вечеринки, творческие конкурсы, спортивные состязания — выбирай и участвуй!', btn: 'Посмотреть мероприятия', counter: '1/4' },
@@ -51,9 +51,21 @@ export function StatsCampus() {
       </div>
 
       <div class={styles.campusGrid}>
-        {/* Big events card with image */}
         <a href={eventCard.url} class={styles.eventsCard} aria-label={eventCard.title}>
-          <img src={campusEvents} alt="" class={styles.eventsImg} />
+          <img src={campusGirls} alt="" class={styles.eventsImg} />
+          <span class={styles.eventsPanel}>
+            <span class={styles.eventsTop}>
+              <span class={styles.eventsTitle}>{CAMPUS_CARDS[0].title}</span>
+              <span class={styles.eventsCounter}>{eventCard.counter}</span>
+            </span>
+            <span class={styles.eventsDesc}>{CAMPUS_CARDS[0].desc}</span>
+            <span class={styles.eventsButton}>
+              {CAMPUS_CARDS[0].btn}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <path d="M4 11h14M13 6l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
         </a>
 
         {/* Small info cards */}

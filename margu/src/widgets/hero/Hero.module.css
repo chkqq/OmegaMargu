@@ -175,3 +175,48 @@
     height: 42px;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    min-height: 520px;
+    margin-bottom: 92px;
+    border-radius: 28px;
+  }
+  .bgImg { width: 56%; }
+  .content {
+    width: 52%;
+    min-height: 470px;
+    padding: 22px 0 22px 22px;
+  }
+  .card { border-radius: 24px; }
+  .subtitle {
+    padding: 42px 26px 0;
+    font-size: 20px;
+  }
+  .title {
+    font-size: 52px;
+  }
+  .btn {
+    min-height: 44px;
+    margin: 0 22px 20px;
+    font-size: 14px;
+  }
+  .card::after { bottom: 64px; }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero {
+    min-height: 560px;
+  }
+  .content {
+    width: 50%;
+    min-height: 516px;
+  }
+  .subtitle {
+    padding-top: 48px;
+    font-size: 22px;
+  }
+  .title {
+    font-size: 66px;
+  }
+}

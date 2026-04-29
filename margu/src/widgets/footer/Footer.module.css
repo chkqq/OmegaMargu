@@ -58,7 +58,12 @@
   justify-content: center;
 }
 
-.socialIcon { display: flex; }
+.socialIcon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
 
 .nav {
   display: flex;
@@ -160,7 +165,7 @@
 
   .socials { gap: 8px; }
   .social { width: 36px; height: 36px; }
-  .social svg { width: 15px; height: 15px; }
+  .socialIcon { width: 15px; height: 15px; }
 
   .nav { display: block; }
   .navCol { gap: 17px; }
@@ -185,4 +190,33 @@
 @media (min-width: 1280px) {
   .footer { width: calc(100% - 120px); }
   .inner { padding: 58px 42px 34px; }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .footer {
+    width: calc(100% - 72px);
+    border-radius: 30px;
+  }
+  .inner {
+    min-height: 360px;
+    padding: 42px 30px 26px;
+    grid-template-columns: 1fr 0.95fr 1.15fr;
+    gap: 36px;
+  }
+  .logoWrap img {
+    width: 62px;
+    height: 62px;
+  }
+  .uniName { font-size: 19px; }
+  .social {
+    width: 44px;
+    height: 44px;
+  }
+  .navLink,
+  .contactLink,
+  .hours span {
+    font-size: 16px;
+  }
+  .contactsTitle { font-size: 27px; }
+  .contactsAddr { font-size: 16px; }
 }

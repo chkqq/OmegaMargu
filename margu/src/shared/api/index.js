@@ -1,4 +1,6 @@
-const DEFAULT_BASE = 'https://promo-prk.marsu.ru/promo-prk/web/api';
+const REMOTE_API_BASE = 'https://promo-prk.marsu.ru/promo-prk/web/api';
+const LOCAL_PROXY_BASE = '/marsu-api';
+const DEFAULT_BASE = import.meta.env.DEV ? LOCAL_PROXY_BASE : REMOTE_API_BASE;
 const DEFAULT_LANGUAGE = 'ru';
 
 export const API_BASE = (import.meta.env.VITE_MARSU_API_BASE || DEFAULT_BASE).replace(/\/$/, '');
@@ -68,7 +70,10 @@ async function request(path, options = {}) {
     headers,
   } = options;
 
-  const url = new URL(`${API_BASE}${path.startsWith('/') ? path : `/${path}`}`);
+  const url = new URL(
+    `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`,
+    globalThis.location?.origin ?? REMOTE_API_BASE,
+  );
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {

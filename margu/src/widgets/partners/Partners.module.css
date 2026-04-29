@@ -19,15 +19,19 @@
   color: var(--clr-text-secondary);
 }
 
-.logosPicture,
-.logosImg {
-  display: block;
+.logosGrid {
   width: 100%;
-  max-width: 1560px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(110px, 1fr));
+  align-items: center;
+  gap: 58px;
 }
 
-.logosImg {
+.logoImg {
+  max-width: 100%;
   height: auto;
+  justify-self: center;
+  object-fit: contain;
 }
 
 @media (max-width: 767px) {
@@ -42,9 +46,25 @@
     font-size: 11px;
     line-height: 1.25;
   }
-  .logosImg {
-    width: 100%;
+  .logosGrid {
     max-width: 260px;
-    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 27px 38px;
+  }
+  .logoImg {
+    max-height: 44px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .logosGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px 52px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .logosGrid {
+    gap: 34px;
   }
 }

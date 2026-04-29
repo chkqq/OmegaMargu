@@ -187,3 +187,32 @@
     font-size: 11px;
   }
 }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .heading { font-size: 48px; }
+  .tabs {
+    width: 360px;
+    min-width: 0;
+  }
+  .card {
+    flex-basis: 360px;
+    min-height: 190px;
+  }
+  .cardTitle { font-size: 27px; }
+  .profession,
+  .count {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .heading { font-size: 56px; }
+  .card {
+    flex-basis: 410px;
+  }
+}

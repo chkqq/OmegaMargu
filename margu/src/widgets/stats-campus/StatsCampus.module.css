@@ -57,6 +57,7 @@
 }
 
 .eventsCard {
+  position: relative;
   display: block;
   border-radius: 24px;
   overflow: hidden;
@@ -68,6 +69,74 @@
   height: 100%;
   min-height: 486px;
   object-fit: cover;
+}
+
+.eventsPanel {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  min-height: 232px;
+  border-radius: 26px;
+  background: rgba(244, 244, 246, 0.88);
+  color: var(--clr-text-primary);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  overflow: hidden;
+}
+
+.eventsTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 30px 34px 8px;
+}
+
+.eventsTitle {
+  max-width: 360px;
+  font-size: 32px;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.eventsCounter {
+  color: var(--clr-text-secondary);
+  font-size: 18px;
+}
+
+.eventsDesc {
+  max-width: 560px;
+  padding: 0 34px 24px;
+  font-size: 19px;
+  line-height: 1.18;
+  font-weight: 600;
+}
+
+.eventsButton {
+  position: relative;
+  min-height: 58px;
+  margin: 0 34px 28px;
+  padding: 0 30px;
+  border-radius: var(--radius-pill);
+  background: #202020;
+  color: #ffffff;
+  display: flex;
+  align-self: end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.eventsButton::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  right: -34px;
+  top: -28px;
+  border-top: 1.5px solid #333333;
 }
 
 .infoCards {
@@ -138,7 +207,41 @@
     gap: 10px;
   }
   .eventsCard { border-radius: 18px; }
-  .eventsImg { min-height: 0; }
+  .eventsImg { min-height: 320px; }
+  .eventsPanel {
+    left: 9px;
+    right: 9px;
+    bottom: 9px;
+    min-height: 144px;
+    border-radius: 14px;
+  }
+  .eventsTop {
+    padding: 16px 18px 4px;
+  }
+  .eventsTitle {
+    max-width: 150px;
+    font-size: 16px;
+  }
+  .eventsCounter {
+    font-size: 10px;
+  }
+  .eventsDesc {
+    max-width: 210px;
+    padding: 0 18px 16px;
+    font-size: 9px;
+    line-height: 1.15;
+  }
+  .eventsButton {
+    min-height: 31px;
+    margin: 0 18px 14px;
+    padding: 0 16px;
+    font-size: 9px;
+  }
+  .eventsButton::before {
+    left: -18px;
+    right: -18px;
+    top: -14px;
+  }
   .infoCards { gap: 10px; }
   .infoCard {
     min-height: 124px;
@@ -151,4 +254,38 @@
   }
   .infoCardDesc { font-size: 11px; }
   .arrow { width: 30px; height: 30px; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .heading { font-size: 48px; }
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .statItem:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .campusGrid {
+    grid-template-columns: 1fr;
+  }
+  .eventsImg { min-height: 460px; }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .heading { font-size: 56px; }
+  .eventsImg { min-height: 420px; }
+  .eventsPanel {
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+  }
+  .eventsTitle,
+  .infoCardTitle {
+    font-size: 26px;
+  }
+  .eventsDesc,
+  .infoCardDesc {
+    font-size: 15px;
+  }
 }

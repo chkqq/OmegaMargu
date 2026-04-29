@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { fetchEducationDirections } from '@/shared/api/index';
 import { MOCK_EDU_DIRECTIONS } from '@/shared/api/mockHome';
 import styles from './EduDirections.module.css';
@@ -7,11 +7,12 @@ import styles from './EduDirections.module.css';
 export function EduDirections() {
   const [tab, setTab] = useState('directions');
   const [directions, setDirections] = useState(MOCK_EDU_DIRECTIONS);
+  const scrollerRef = useRef(null);
 
   useEffect(() => {
     let active = true;
 
-    fetchEducationDirections(4)
+    fetchEducationDirections(8)
       .then(data => {
         if (active && data.length) setDirections(data);
       })
@@ -21,6 +22,20 @@ export function EduDirections() {
       active = false;
     };
   }, []);
+
+  const handleWheel = event => {
+    const scroller = scrollerRef.current;
+    if (!scroller || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const nextScroll = Math.max(0, Math.min(maxScroll, scroller.scrollLeft + event.deltaY));
+    if (nextScroll !== scroller.scrollLeft) {
+      event.preventDefault();
+      scroller.scrollLeft = nextScroll;
+    }
+  };
 
   return (
     <section class={styles.section} id="directions">
@@ -35,7 +50,7 @@ export function EduDirections() {
       </div>
       <p class={styles.sub}>Получите востребованную профессию: направления бакалавриата/специалитета под запросы рынка труда</p>
 
-      <div class={styles.grid}>
+      <div class={styles.grid} ref={scrollerRef} onWheel={handleWheel}>
         {directions.map(dir => (
           <a key={dir.id} href="#" class={styles.card}>
             <div class={styles.cardIcon}>{dir.icon}</div>

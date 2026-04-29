@@ -70,7 +70,7 @@
   margin-right: auto;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .desktopNav { display: flex; }
 }
 
@@ -159,7 +159,7 @@
   transform: translateY(-1px);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .ctaBtn { display: flex; }
 }
 
@@ -174,7 +174,7 @@
   justify-content: center;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .burger { display: none; }
 }
 

@@ -1,6 +1,12 @@
 import { h } from 'preact';
 import styles from './Footer.module.css';
-import MarsuLogo from  '../../assets/marsu.svg'
+import MarsuLogo from '../../assets/marsu.svg';
+import marsuSocialIcon from '@/assets/design/marsu.svg';
+import vkIcon from '@/assets/design/vk.svg';
+import rutubeIcon from '@/assets/design/rutube.svg';
+import okIcon from '@/assets/design/ok.png';
+import tgIcon from '@/assets/design/tg.svg';
+import dzenIcon from '@/assets/design/dzen.svg';
 
 const SOCIAL_ICONS = {
   vk: (
@@ -36,12 +42,12 @@ const SOCIAL_ICONS = {
 };
 
 const SOCIAL_LINKS = [
-  { label: 'ВКонтакте', href: '#', icon: 'vk' },
-  { label: 'Rutube', href: '#', icon: 'rt' },
-  { label: 'Одноклассники', href: '#', icon: 'ok' },
-  { label: 'Telegram', href: '#', icon: 'tg' },
-  { label: 'Яндекс Дзен', href: '#', icon: 'dz' },
-  { label: 'ВКонтакте видео', href: '#', icon: 'vv' },
+  { label: 'ВКонтакте', href: '#', src: vkIcon },
+  { label: 'Rutube', href: '#', src: rutubeIcon },
+  { label: 'Одноклассники', href: '#', src: okIcon },
+  { label: 'Telegram', href: '#', src: tgIcon },
+  { label: 'Яндекс Дзен', href: '#', src: dzenIcon },
+  { label: 'МарГУ', href: '#', src: marsuSocialIcon },
 ];
 
 const NAV_COLS = [
@@ -75,7 +81,7 @@ export function Footer() {
           <div class={styles.socials}>
             {SOCIAL_LINKS.map(s => (
               <a key={s.label} href={s.href} class={styles.social} aria-label={s.label}>
-                <span class={styles.socialIcon}>{SOCIAL_ICONS[s.icon]}</span>
+                <img src={s.src} alt="" class={styles.socialIcon} />
               </a>
             ))}
           </div>
